@@ -23,6 +23,12 @@ You don't have to store these hashes in the database, but can encrypt + decrypt 
 
 All integers need to be greater than or equal to zero.
 
+## Generating JavaScript
+
+After installing [CoffeeScript](http://coffeescript.org/), run:
+
+`coffee -cb hashids.coffee`
+
 ## Sample usage
 
 #### Encrypting one number
