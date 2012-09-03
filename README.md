@@ -29,7 +29,7 @@ After installing [CoffeeScript](http://coffeescript.org/), run:
 
 `coffee -cb hashids.coffee`
 
-## Sample usage
+## Usage
 
 #### Encrypting one number
 
@@ -38,12 +38,12 @@ You can pass a unique salt value so your hashes differ from everyone else's. I u
 ```coffeescript
 
 hashes = new hashids "this is my salt"
-hash = hashes.encrypt 1234
+hash = hashes.encrypt 12345
 ```
 
 `hash` is now going to be:
 	
-	xEXn
+	ryKo
 
 #### Decrypting
 
@@ -52,12 +52,12 @@ Notice during decryption, same salt value is used:
 ```coffeescript
 
 hashes = new hashids "this is my salt"
-numbers = hashes.decrypt "xEXn"
+numbers = hashes.decrypt "ryKo"
 ```
 
 `numbers` is now going to be:
 	
-	[ 1234 ]
+	[ 12345 ]
 
 #### Decrypting with different salt
 
@@ -66,7 +66,7 @@ Decryption will not work if salt is changed:
 ```coffeescript
 
 hashes = new hashids "this is my pepper"
-numbers = hashes.decrypt "xEXn"
+numbers = hashes.decrypt "ryKo"
 ```
 
 `numbers` is now going to be:
@@ -99,24 +99,24 @@ numbers = hashes.decrypt "zKphM54nuAyu5"
 	
 #### Encrypting and specifying minimum hash length
 
-Here we encrypt integer 1, and set the minimum hash length to **17** (by default it's **0** -- meaning hashes will be the shortest possible length).
+Here we encrypt integer 1, and set the minimum hash length to **8** (by default it's **0** -- meaning hashes will be the shortest possible length).
 
 ```coffeescript
 
-hashes = new hashids "this is my salt", 17
+hashes = new hashids "this is my salt", 8
 hash = hashes.encrypt 1
 ```
 
 `hash` is now going to be:
 	
-	7rKjHrjiMRirLkHyr
+	rjiMRirL
 	
 #### Decrypting
 
 ```coffeescript
 
-hashes = new hashids "this is my salt", 17
-numbers = hashes.decrypt "7rKjHrjiMRirLkHyr"
+hashes = new hashids "this is my salt", 8
+numbers = hashes.decrypt "rjiMRirL"
 ```
 
 `numbers` is now going to be:
@@ -209,6 +209,12 @@ Therefore, this algorithm tries to avoid generating most common English curse wo
 **0.1.0**
 	
 - First commit
+
+## Contact
+
+Follow me [@IvanAkimov](http://twitter.com/ivanakimov)
+
+Or [http://ivanakimov.com](http://ivanakimov.com)
 
 ## License
 
