@@ -55,7 +55,7 @@ class hashids
 			return ret
 		
 		for number in numbers
-			return ret if typeof number isnt "number" or number < 0
+			return ret if typeof number isnt "number" or number % 1 isnt 0 or number < 0
 		
 		@encode numbers, @alphabet, @salt, @minHashLength
 		
