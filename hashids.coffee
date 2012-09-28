@@ -10,18 +10,21 @@
 
 class hashids
 	
-	constructor: (@salt = "", @minHashLength = 0, @alphabet = "xcS4F6h89aUbidefI7fjkyunopqrsgCYE5GHTCKLHMtARXz") ->
+	constructor: (@salt = "", @minHashLength = 0, @alphabet = "xcS4F6h89aUbideAI7tkynuopqrXCgTE5GBKHLMjfRsz") ->
 		
-		@version = "0.1.2"
+		@version = "0.1.3"
 		@primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
 		
 		@seps = []
 		@guards = []
 		
-		if alphabet
-			@alphabet = ""
-			for char in alphabet
-				 @alphabet += char if @alphabet.indexOf(char) is -1
+		if alphabet and typeof alphabet is "string"
+			@alphabet = alphabet
+		
+		uniqueAlphabet = ""
+		for char in @alphabet
+			uniqueAlphabet += char if uniqueAlphabet.indexOf(char) is -1
+		@alphabet = uniqueAlphabet
 		
 		throw "Alphabet must contain at least 4 unique characters." if @alphabet.length < 4
 		
