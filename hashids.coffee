@@ -8,11 +8,11 @@
 	hashids may be freely distributed under the MIT license.
 ###
 
-class hashids
+class Hashids
 	
 	constructor: (@salt = "", @minHashLength = 0, @alphabet = "xcS4F6h89aUbideAI7tkynuopqrXCgTE5GBKHLMjfRsz") ->
 		
-		@version = "0.1.3"
+		@version = "0.1.4"
 		@primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
 		
 		@seps = []
