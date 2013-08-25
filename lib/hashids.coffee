@@ -1,13 +1,12 @@
 
 # hashids
-# http://www.hashids.org/coffee/
+# http://www.hashids.org/coffeescript/
 # (c) 2013 Ivan Akimov
 
-# https://github.com/ivanakimov/hashids.js
+# https://github.com/ivanakimov/hashids.coffee
 # hashids may be freely distributed under the MIT license.
 
 # to compile: coffee -cb lib/hashids.coffee
-#jslint plusplus: true
 
 class Hashids
 	
@@ -31,7 +30,7 @@ class Hashids
 		for chr in @alphabet
 			uniqueAlphabet += chr if uniqueAlphabet.indexOf(chr) is -1
 		
-		throw @errorAlphabetLength.replace("X", @minAlphabetLength)	if @alphabet.length < @minAlphabetLength
+		throw @errorAlphabetLength.replace("X", @minAlphabetLength) if @alphabet.length < @minAlphabetLength
 		throw @errorAlphabetSpace if @alphabet.search(" ") isnt -1
 		
 		# seps should contain only characters present in alphabet; alphabet should not contains seps
