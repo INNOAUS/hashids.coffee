@@ -1,9 +1,9 @@
 
 # creating class object
-hashes = new hashids "this is my salt"
+hashids = new Hashids "this is my salt"
 
 # encrypting one number
-hash = hashes.encrypt 1337
+hash = hashids.encrypt 1337
 
 # hash is always a string
 console.log hash
