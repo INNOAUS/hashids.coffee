@@ -6,7 +6,7 @@
 Full Documentation
 -------
 
-A small CoffeeScript class to generate YouTube-like hashes from one or many numbers. Use hashids when you do not want to expose your database ids to the user. Read full documentation at: [http://www.hashids.org/coffeescript/](http://www.hashids.org/coffeescript/)
+A small CoffeeScript class to generate YouTube-like hashids from one or many numbers. Use hashids when you do not want to expose your database ids to the user. Read full documentation at: [http://hashids.org/coffeescript](http://hashids.org/coffeescript)
 
 If you are looking for a **Node.js version**, there's a separate repo: [https://github.com/ivanakimov/hashids.node.js](https://github.com/ivanakimov/hashids.node.js)
 
@@ -24,57 +24,57 @@ Installation
 Usage
 -------
 
-#### Encrypting one number
+#### Encoding one number
 
-You can pass a unique salt value so your hashes differ from everyone else's. I use "this is my salt" as an example.
+You can pass a unique salt value so your ids differ from everyone else's. I use "this is my salt" as an example.
 
 ```coffeescript
 
 hashids = new Hashids "this is my salt"
-hash = hashids.encrypt 12345
+id = hashids.encode 12345
 ```
 
-`hash` is now going to be:
+`id` is now going to be:
 	
 	NkK9
 
-#### Decrypting
+#### Decoding
 
-Notice during decryption, same salt value is used:
+Notice during decoding, same salt value is used:
 
 ```coffeescript
 
 hashids = new Hashids "this is my salt"
-numbers = hashids.decrypt "NkK9"
+numbers = hashids.decode "NkK9"
 ```
 
 `numbers` is now going to be:
 	
 	[ 12345 ]
 
-#### Decrypting with different salt
+#### Decoding with different salt
 
-Decryption will not work if salt is changed:
+Decoding will not work if salt is changed:
 
 ```coffeescript
 
 hashids = new Hashids "this is my pepper"
-numbers = hashids.decrypt "NkK9"
+numbers = hashids.decode "NkK9"
 ```
 
 `numbers` is now going to be:
 	
 	[]
 	
-#### Encrypting several numbers
+#### Encoding several numbers
 
 ```coffeescript
 
 hashids = new Hashids "this is my salt"
-hash = hashids.encrypt 683, 94108, 123, 5
+id = hashids.encode 683, 94108, 123, 5
 ```
 
-`hash` is now going to be:
+`id` is now going to be:
 	
 	aBMswoO2UB3Sj
 	
@@ -83,65 +83,65 @@ You can also pass an array:
 ```coffeescript
 
 arr = [683, 94108, 123, 5]
-hash = hashids.encrypt arr
+id = hashids.encode arr
 ```
 
-#### Decrypting is done the same way
+#### Decoding is done the same way
 
 ```coffeescript
 
 hashids = new Hashids "this is my salt"
-numbers = hashids.decrypt "aBMswoO2UB3Sj"
+numbers = hashids.decode "aBMswoO2UB3Sj"
 ```
 
 `numbers` is now going to be:
 	
 	[ 683, 94108, 123, 5 ]
 	
-#### Encrypting and specifying minimum hash length
+#### Encoding and specifying minimum id length
 
-Here we encrypt integer 1, and set the **minimum** hash length to **8** (by default it's **0** -- meaning hashes will be the shortest possible length).
+Here we encode integer 1, and set the **minimum** id length to **8** (by default it's **0** -- meaning ids will be the shortest possible length).
 
 ```coffeescript
 
 hashids = new Hashids "this is my salt", 8
-hash = hashids.encrypt 1
+id = hashids.encode 1
 ```
 
-`hash` is now going to be:
+`id` is now going to be:
 	
 	gB0NV05e
 	
-#### Decrypting
+#### Decoding
 
 ```coffeescript
 
 hashids = new Hashids "this is my salt", 8
-numbers = hashids.decrypt "gB0NV05e"
+numbers = hashids.decode "gB0NV05e"
 ```
 
 `numbers` is now going to be:
 	
 	[ 1 ]
 	
-#### Specifying custom hash alphabet
+#### Specifying custom id alphabet
 
 Here we set the alphabet to consist of valid hex characters: "0123456789abcdef"
 
 ```coffeescript
 
 hashids = new Hashids "this is my salt", 0, "0123456789abcdef"
-hash = hashids.encrypt 1, 2, 3, 4, 5
+id = hashids.encode 1, 2, 3, 4, 5
 ```
 
-`hash` is now going to be:
+`id` is now going to be:
 	
 	b332db5
 	
 Randomness
 -------
 
-The primary purpose of hashids is to obfuscate ids. It's not meant or tested to be used for security purposes or compression.
+The primary purpose of hashids is to obfuscate numbers. It's not meant or tested to be used for security purposes or compression.
 Having said that, this algorithm does try to make these hashes unguessable and unpredictable:
 
 #### Repeating numbers
@@ -149,7 +149,7 @@ Having said that, this algorithm does try to make these hashes unguessable and u
 ```coffeescript
 
 hashids = new Hashids "this is my salt"
-hash = hashids.encrypt 5, 5, 5, 5
+id = hashids.encode 5, 5, 5, 5
 ```
 
 You don't see any repeating patterns that might show there's 4 identical numbers in the hash:
@@ -161,10 +161,10 @@ Same with incremented numbers:
 ```coffeescript
 
 hashids = new Hashids "this is my salt"
-hash = hashids.encrypt 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+id = hashids.encode 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 ```
 
-`hash` will be :
+`id` will be :
 	
 	kRHnurhptKcjIDTWC3sx
 	
@@ -172,19 +172,19 @@ hash = hashids.encrypt 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 
 ```coffeescript
 
-hashes = new hashids "this is my salt"
+hashids = new hashids "this is my salt"
 
-hash1 = hashids.encrypt(1) # NV
-hash2 = hashids.encrypt(2) # 6m
-hash3 = hashids.encrypt(3) # yD
-hash4 = hashids.encrypt(4) # 2l
-hash5 = hashids.encrypt(5) # rD
+id1 = hashids.encode(1) # NV
+id2 = hashids.encode(2) # 6m
+id3 = hashids.encode(3) # yD
+id4 = hashids.encode(4) # 2l
+id5 = hashids.encode(5) # rD
 ```
 
 Curses! #$%@
 -------
 
-This code was written with the intent of placing created hashes in visible places - like the URL. Which makes it unfortunate if generated hashes accidentally formed a bad word.
+This code was written with the intent of placing created ids in visible places - like the URL. Which makes it unfortunate if generated hashes accidentally formed a bad word.
 
 Therefore, the algorithm tries to avoid generating most common English curse words. This is done by never placing the following letters next to each other:
 	
@@ -192,6 +192,19 @@ Therefore, the algorithm tries to avoid generating most common English curse wor
 	
 Changelog
 -------
+
+**1.0.0**
+
+- Several public functions are renamed to be more appropriate:
+	- Function `encrypt()` changed to `encode()`
+	- Function `decrypt()` changed to `decode()`
+	- Function `encryptHex()` changed to `encodeHex()`
+	- Function `decryptHex()` changed to `decodeHex()`
+	
+	Hashids was designed to encode integers, primary ids at most. We've had several requests to encrypt sensitive data with Hashids and this is the wrong algorithm for that. So to encourage more appropriate use, `encrypt/decrypt` is being "downgraded" to `encode/decode`.
+
+- Version tag added: `1.0`
+- `README.md` updated
 
 **0.3.0 - Current Stable**
 

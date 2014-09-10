@@ -1,6 +1,6 @@
 
-# hashids
-# http://www.hashids.org/coffeescript/
+# Hashids
+# http://hashids.org/coffeescript
 # (c) 2013 Ivan Akimov
 
 # https://github.com/ivanakimov/hashids.coffee
@@ -12,7 +12,7 @@ class Hashids
 	
 	constructor: (@salt = "", @minHashLength = 0, @alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890") ->
 		
-		@version = "0.3.0"
+		@version = "1.0.0"
 		
 		# internal settings
 		@minAlphabetLength = 16
@@ -73,7 +73,7 @@ class Hashids
 			@guards = @alphabet.substr 0, guardCount
 			@alphabet = @alphabet.substr guardCount
 		
-	encrypt: ->
+	encode: ->
 		
 		ret = ""
 		numbers = Array::slice.call arguments
@@ -84,16 +84,16 @@ class Hashids
 		for number in numbers
 			return ret if typeof number isnt "number" or number % 1 isnt 0 or number < 0
 		
-		@encode numbers
+		@_encode numbers
 		
-	decrypt: (hash) ->
+	decode: (hash) ->
 		
 		ret = []
 		
 		return ret if not hash.length or typeof hash isnt "string"
-		@decode hash, @alphabet
+		@_decode hash, @alphabet
 		
-	encryptHex: (str) ->
+	encodeHex: (str) ->
 		
 		return "" unless /^[0-9a-fA-F]+$/.test str
 		numbers = str.match /[\w\W]{1,12}/g
@@ -101,19 +101,19 @@ class Hashids
 		for number, i in numbers
 			numbers[i] = parseInt "1" + number, 16
 		
-		@encrypt.apply @, numbers
+		@encode.apply @, numbers
 		
-	decryptHex: (hash) ->
+	decodeHex: (hash) ->
 		
 		ret = []
-		numbers = @decrypt hash
+		numbers = @decode hash
 		
 		for number, i in numbers
 			ret += (numbers[i]).toString(16).substr 1
 		
 		ret
 		
-	encode: (numbers) ->
+	_encode: (numbers) ->
 		
 		alphabet = @alphabet
 		numbersSize = numbers.length
@@ -161,7 +161,7 @@ class Hashids
 			
 		ret
 		
-	decode: (hash, alphabet) ->
+	_decode: (hash, alphabet) ->
 		
 		ret = []
 		r = new RegExp "[" + @guards + "]", "g"
@@ -187,7 +187,7 @@ class Hashids
 				alphabet = @consistentShuffle alphabet, buffer.substr 0, alphabet.length
 				ret.push @unhash subHash, alphabet
 				
-			ret = [] if @encode(ret) isnt hash
+			ret = [] if @_encode(ret) isnt hash
 			
 		ret
 		
